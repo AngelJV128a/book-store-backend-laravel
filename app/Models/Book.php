@@ -23,6 +23,10 @@ class Book extends Model
         'description',
     ];
 
+    protected $casts = [
+    'id' => 'string', // ✅ esto mantiene el UUID correctamente
+];
+
     public function author(){
         return $this->belongsTo(Author::class);
     }
