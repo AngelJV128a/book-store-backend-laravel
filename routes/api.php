@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EditorialController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -72,3 +73,9 @@ Route::get('/books/title', [BookController::class, 'showByTitle']);
 Route::get('/books/search', [BookController::class, 'show']);
 Route::put('/books/{id}', [BookController::class, 'update']);
 Route::delete('/books/{id}', [BookController::class, 'destroy']);
+
+Route::get('/sales', [SaleController::class, 'index']);
+Route::post('/sales', [SaleController::class, 'store']);
+Route::get('/sales/search', [SaleController::class, 'show']);
+Route::delete('/sales/delete', [SaleController::class, 'delete']);
+Route::get('/sales/user', [SaleController::class, 'showByUser']);

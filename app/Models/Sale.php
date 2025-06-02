@@ -20,6 +20,6 @@ class Sale extends Model
     }
 
     public function saleDetail(){
-        return $this->hasMany(SaleDetail::class);
+        return $this->hasMany(SaleDetail::class, 'id_sale');
     }
 }
