@@ -104,6 +104,11 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'nationality' => 'required|string|max:255'
+        ]);
         $author = new Author();
         $author->name = $request->name;
         $author->last_name = $request->last_name;
@@ -232,6 +237,11 @@ class AuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'nationality' => 'required|string|max:255'
+        ]);
         $author = Author::find($id);
         if (!$author) {
             return response()->json(['message' => 'Author not found'], 404);
@@ -346,6 +356,9 @@ class AuthorController extends Controller
      */
     public function showByName(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
         $name = $request->name;
         $author = Author::where('name', $name)->first();
         if (!$author) {
@@ -407,6 +420,9 @@ class AuthorController extends Controller
      */
     public function showByLastName(Request $request)
     {
+        $request->validate([
+            'last_name' => 'required|string|max:255'
+        ]);
         $last_name = $request->last_name;
         $author = Author::where('last_name', $last_name)->first();
         if (!$author) {
@@ -468,6 +484,9 @@ class AuthorController extends Controller
      */
     public function showByNationality(Request $request)
     {
+        $request->validate([
+            'nationality' => 'required|string|max:255'
+        ]);
         $nationality = $request->nationality;
         $author = Author::where('nationality', $nationality)->first();
         if (!$author) {
