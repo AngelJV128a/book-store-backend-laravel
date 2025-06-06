@@ -97,7 +97,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::paginate(10);
+        $books = Book::with('author', 'editorial', 'category')->paginate(10);
         return response()->json($books);
     }
 
@@ -639,5 +639,10 @@ class BookController extends Controller
             'book' => $book
         ];
         return response()->json($response);
+    }
+
+    public function showRandomBooks(){
+        $books = Book::inRandomOrder()->limit(10)->get();
+        return response()->json($books);
     }
 }

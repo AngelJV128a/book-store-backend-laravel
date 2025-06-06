@@ -20,7 +20,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/login",
+     *     path="/api/auth/login",
      *     summary="Iniciar sesión",
      *     description="Autentica a un usuario y retorna un token JWT",
      *     operationId="loginUser",
@@ -64,7 +64,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/register",
+     *     path="/api/auth/register",
      *     summary="Registrar nuevo usuario",
      *     description="Registra un nuevo usuario y devuelve sus datos con autenticación",
      *     operationId="registerUser",
@@ -125,7 +125,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/me",
+     *     path="/api/auth/me",
      *     summary="Obtener usuario autenticado",
      *     description="Devuelve la información del usuario actualmente autenticado mediante JWT",
      *     operationId="getAuthenticatedUser",
@@ -158,7 +158,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/logout",
+     *     path="/api/auth/logout",
      *     summary="Cerrar sesión",
      *     description="Finaliza la sesión del usuario autenticado mediante JWT",
      *     operationId="logoutUser",
@@ -189,7 +189,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/refresh",
+     *     path="/api/auth/refresh",
      *     summary="Renovar token JWT",
      *     description="Renueva el token JWT para prolongar la sesión del usuario autenticado",
      *     operationId="refreshToken",
