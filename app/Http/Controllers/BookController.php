@@ -642,7 +642,7 @@ class BookController extends Controller
     }
 
     public function showRandomBooks(){
-        $books = Book::inRandomOrder()->limit(10)->get();
+        $books = Book::inRandomOrder()->with('author', 'editorial', 'category')->paginate(10);
         return response()->json($books);
     }
 }
