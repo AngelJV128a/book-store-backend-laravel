@@ -213,7 +213,7 @@ class BookController extends Controller
     public function show(Request $request)
     {
         $id = $request->id;
-        $book = Book::find($id);
+        $book = Book::with('author', 'editorial', 'category')->find($id);
         if (!$book) {
             return response()->json(['message' => 'Book not found'], 404);
         }

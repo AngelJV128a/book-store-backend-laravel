@@ -70,7 +70,7 @@ Route::get('/books/editorial', [BookController::class, 'showByEditorial']);
 Route::get('/books/category', [BookController::class, 'showByCategory']);
 Route::get('/books/filters', [BookController::class, 'showByFilters']);
 Route::get('/books/title', [BookController::class, 'showByTitle']);
-Route::get('/books/search', [BookController::class, 'show']);
+Route::post('/books/search', [BookController::class, 'show']);
 Route::get('/books/random', [BookController::class, 'showRandomBooks']);
 Route::put('/books/{id}', [BookController::class, 'update']);
 Route::delete('/books/{id}', [BookController::class, 'destroy']);
