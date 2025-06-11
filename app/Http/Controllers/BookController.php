@@ -392,20 +392,16 @@ class BookController extends Controller
      *     )
      * )
      */
-    public function showByAuthor(Request $request)
+    public function showByAuthor($id)
     {
-        $request->validate([
-            'author_id' => 'required|string|max:255'
-        ]);
-        $author_id = $request->author_id;
-        $book = Book::where('author_id', $author_id)->with('author')->first();
-        if (!$book) {
+        $books = Book::where('author_id', $id)->with(['author','editorial'])->paginate(10);
+        if (!$books) {
             return response()->json(['message' => 'Book not found'], 404);
         }
         $response = [
             'code' => 200,
             'message' => 'Book found successfully',
-            'book' => $book
+            'books' => $books
         ];
         return response()->json($response);
     }
