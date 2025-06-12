@@ -217,10 +217,14 @@ class BookController extends Controller
         if (!$book) {
             return response()->json(['message' => 'Book not found'], 404);
         }
+
+        $relatedBooks = Book::with(['author','editorial','category'])->where('category_id', $book->category_id)->paginate(3);
+
         $response = [
             'code' => 200,
             'message' => 'Book found successfully',
-            'book' => $book
+            'book' => $book,
+            'related_books' => $relatedBooks
         ];
         return response()->json($response);
     }
@@ -438,20 +442,18 @@ class BookController extends Controller
      *     )
      * )
      */
-    public function showByEditorial(Request $request)
+    public function showByEditorial($id)
     {
-        $request->validate([
-            'editorial_id' => 'required|string|max:255'
-        ]);
-        $editorial_id = $request->editorial_id;
-        $book = Book::where('editorial_id', $editorial_id)->with('editorial')->first();
-        if (!$book) {
+
+        $editorial_id = $id;
+        $books = Book::where('editorial_id', $editorial_id)->with(['editorial','author'])->paginate(10);
+        if (!$books) {
             return response()->json(['message' => 'Book not found'], 404);
         }
         $response = [
             'code' => 200,
             'message' => 'Book found successfully',
-            'book' => $book
+            'books' => $books
         ];
         return response()->json($response);
     }

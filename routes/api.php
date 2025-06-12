@@ -66,12 +66,13 @@ Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
 Route::get('/books', [BookController::class, 'index']);
 Route::post('/books', [BookController::class, 'store']);
 
-Route::get('/books/editorial', [BookController::class, 'showByEditorial']);
+
 Route::get('/books/category', [BookController::class, 'showByCategory']);
 Route::get('/books/filters', [BookController::class, 'showByFilters']);
 Route::get('/books/title', [BookController::class, 'showByTitle']);
 Route::post('/books/search', [BookController::class, 'show']);
 Route::get('/books/random', [BookController::class, 'showRandomBooks']);
+Route::get('/books/editorial/{id}', [BookController::class, 'showByEditorial']);
 Route::get('/books/author/{id}', [BookController::class, 'showByAuthor']);
 Route::put('/books/{id}', [BookController::class, 'update']);
 Route::delete('/books/{id}', [BookController::class, 'destroy']);
