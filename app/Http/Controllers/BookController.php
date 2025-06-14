@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Editorial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -218,7 +220,7 @@ class BookController extends Controller
             return response()->json(['message' => 'Book not found'], 404);
         }
 
-        $relatedBooks = Book::with(['author','editorial','category'])->where('category_id', $book->category_id)->paginate(3);
+        $relatedBooks = Book::with(['author', 'editorial', 'category'])->where('category_id', $book->category_id)->paginate(3);
 
         $response = [
             'code' => 200,
@@ -398,14 +400,18 @@ class BookController extends Controller
      */
     public function showByAuthor($id)
     {
-        $books = Book::where('author_id', $id)->with(['author','editorial'])->paginate(10);
+
+        $books = Book::where('author_id', $id)->with(['author', 'editorial'])->paginate(10);
+        $author = Author::find($id);
+        $authorName = $author->name . " " . $author->last_name;
         if (!$books) {
             return response()->json(['message' => 'Book not found'], 404);
         }
         $response = [
             'code' => 200,
             'message' => 'Book found successfully',
-            'books' => $books
+            'books' => $books,
+            'authorName' => $authorName
         ];
         return response()->json($response);
     }
@@ -446,14 +452,16 @@ class BookController extends Controller
     {
 
         $editorial_id = $id;
-        $books = Book::where('editorial_id', $editorial_id)->with(['editorial','author'])->paginate(10);
+        $books = Book::where('editorial_id', $editorial_id)->with(['editorial', 'author'])->paginate(10);
+        $editorial = Editorial::find($editorial_id)->name;
         if (!$books) {
             return response()->json(['message' => 'Book not found'], 404);
         }
         $response = [
             'code' => 200,
             'message' => 'Book found successfully',
-            'books' => $books
+            'books' => $books,
+            'editorialName' => $editorial
         ];
         return response()->json($response);
     }
@@ -639,7 +647,8 @@ class BookController extends Controller
         return response()->json($response);
     }
 
-    public function showRandomBooks(){
+    public function showRandomBooks()
+    {
         $books = Book::inRandomOrder()->with('author', 'editorial', 'category')->paginate(10);
         return response()->json($books);
     }
